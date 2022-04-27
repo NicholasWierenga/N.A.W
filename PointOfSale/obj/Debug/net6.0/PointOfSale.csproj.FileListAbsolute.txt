@@ -1,0 +1,15 @@
+C:\Users\Nick\source\repos\PointOfSale\PointOfSale\bin\Debug\net6.0\PointOfSale.exe
+C:\Users\Nick\source\repos\PointOfSale\PointOfSale\bin\Debug\net6.0\PointOfSale.deps.json
+C:\Users\Nick\source\repos\PointOfSale\PointOfSale\bin\Debug\net6.0\PointOfSale.runtimeconfig.json
+C:\Users\Nick\source\repos\PointOfSale\PointOfSale\bin\Debug\net6.0\PointOfSale.dll
+C:\Users\Nick\source\repos\PointOfSale\PointOfSale\bin\Debug\net6.0\PointOfSale.pdb
+C:\Users\Nick\source\repos\PointOfSale\PointOfSale\obj\Debug\net6.0\PointOfSale.csproj.AssemblyReference.cache
+C:\Users\Nick\source\repos\PointOfSale\PointOfSale\obj\Debug\net6.0\PointOfSale.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\Nick\source\repos\PointOfSale\PointOfSale\obj\Debug\net6.0\PointOfSale.AssemblyInfoInputs.cache
+C:\Users\Nick\source\repos\PointOfSale\PointOfSale\obj\Debug\net6.0\PointOfSale.AssemblyInfo.cs
+C:\Users\Nick\source\repos\PointOfSale\PointOfSale\obj\Debug\net6.0\PointOfSale.csproj.CoreCompileInputs.cache
+C:\Users\Nick\source\repos\PointOfSale\PointOfSale\obj\Debug\net6.0\PointOfSale.dll
+C:\Users\Nick\source\repos\PointOfSale\PointOfSale\obj\Debug\net6.0\refint\PointOfSale.dll
+C:\Users\Nick\source\repos\PointOfSale\PointOfSale\obj\Debug\net6.0\PointOfSale.pdb
+C:\Users\Nick\source\repos\PointOfSale\PointOfSale\obj\Debug\net6.0\PointOfSale.genruntimeconfig.cache
+C:\Users\Nick\source\repos\PointOfSale\PointOfSale\obj\Debug\net6.0\ref\PointOfSale.dll
