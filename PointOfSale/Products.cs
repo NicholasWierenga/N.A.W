@@ -30,7 +30,7 @@ namespace PointOfSale
 
         public virtual void PrintItem()
         {
-            Console.WriteLine(Name + " for " + "$" + Price + ".");
+            Console.WriteLine(Name + " for " + "$" + Price.ToString("0.00") + ".");
         }
     }
 }

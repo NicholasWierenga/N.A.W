@@ -9,7 +9,8 @@ namespace PointOfSale
     public class Items
     {
         List<Products> allItems = new List<Products>
-           {new Products("Burger", Category.Entree, "It's a double cheeseburger", 5.00),
+        {
+            new Products("Burger", Category.Entree, "It's a double cheeseburger", 5.00),
             new Products("Nuggets", Category.Entree, "8 chicken nuggets.", 4.50),
             new Products("Taco", Category.Entree, "A taco", 3.25),
             new Products("Hot dog", Category.Entree, "A hot dog, which is technically a sandwich", 2.00),
@@ -25,12 +26,13 @@ namespace PointOfSale
         public Items()
         {
         }
-        // public Products(string Name, Category Category, string Desc, double Price)
+        
         public void PrintAll()
         {
             for (int i = 0; i < allItems.Count; i++)
             {
-                Console.WriteLine("Name: " + allItems[i].Name + " Category: " + allItems[i].Category + " Description: " + allItems[i].Desc + " Price: " + allItems[i].Price);
+                Console.WriteLine("Name: " + allItems[i].Name + " Category: " + allItems[i].Category
+                    + " Description: " + allItems[i].Desc + " Price: $" + allItems[i].Price.ToString("0.00") + ".");
             }
         }
 
@@ -58,10 +60,17 @@ namespace PointOfSale
             double total = subPrice + salesTax;
 
             
+
             Console.WriteLine("Amount they ordered: " + amountOrdered);
             Console.WriteLine("Subtotal: " + "$" + subPrice.ToString("0.00") + ".");
             Console.WriteLine("Sales tax: " + "$" + salesTax.ToString("0.00") + ".");
-            Console.WriteLine("Total: " + "$" +total.ToString("0.00") + ".");
+            Console.WriteLine("Total: " + "$" + total.ToString("0.00") + ".");
+
+            Payment pay = new Payment(total); 
+            pay.Pay();
+
+            
+            
         }
 
         private int OrderAmount(int index)
