@@ -48,7 +48,8 @@ namespace PointOfSale
 
             if (Enum.TryParse(input, out PayOption payOption))
             {
-                Console.WriteLine("You've selected " + payOption.ToString() + " as your payment option. Your total owed is: $" + TotalOwed.ToString("0.00") + ".");
+                Console.WriteLine("You've selected " + payOption.ToString() + " as your payment option." +
+                    " Your total owed is: $" + TotalOwed.ToString("0.00") + ".");
                 return payOption;
             }
             else
@@ -108,8 +109,9 @@ namespace PointOfSale
 
         public void CardPaid()
         {
-            long cardNumber = GetIntInput("Please enter your card number.");
-            if (cardNumber.ToString().Length != 16)
+
+            string cardNumber = GetStringInput("Please enter your card number.");
+            if (!long.TryParse(cardNumber, out long outputNum) || cardNumber.ToString().Length != 16)
             {
                 Console.WriteLine("You entered non numbers or an incorrect amount of digits. Let's try again");
                 CardPaid();

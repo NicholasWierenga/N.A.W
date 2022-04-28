@@ -13,11 +13,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\Nick\\source\\repos\\PointOfSale\\PointOfSale\\PointOfSale.csproj",
+      "projectUniqueName": "C:\\Users\\Nick\\source\\repos\\N.A.W\\PointOfSale\\PointOfSale.csproj",
       "projectName": "PointOfSale",
-      "projectPath": "C:\\Users\\Nick\\source\\repos\\PointOfSale\\PointOfSale\\PointOfSale.csproj",
+      "projectPath": "C:\\Users\\Nick\\source\\repos\\N.A.W\\PointOfSale\\PointOfSale.csproj",
       "packagesPath": "C:\\Users\\Nick\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\Nick\\source\\repos\\PointOfSale\\PointOfSale\\obj\\",
+      "outputPath": "C:\\Users\\Nick\\source\\repos\\N.A.W\\PointOfSale\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "C:\\Users\\Nick\\AppData\\Roaming\\NuGet\\NuGet.Config",
