@@ -78,6 +78,9 @@ namespace PointOfSale
                 UserInput = Console.ReadLine().Trim().ToLower();
 
             } while (UserInput == "y");
+
+            Payment customerPay = new Payment(RunningTotal);
+            customerPay.Pay();
         }
 
         private int OrderAmount(int index)
