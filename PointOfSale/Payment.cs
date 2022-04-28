@@ -71,7 +71,7 @@ namespace PointOfSale
                 }
 
                 Console.WriteLine("Thank you for your business. Enjoy your meal.");
-            } 
+            }
             else
             {
                 Console.WriteLine("You've given less than the amount you owe. Let's try again.");
@@ -125,8 +125,13 @@ namespace PointOfSale
             }
 
             int expiryMonth = GetIntInput("Please enter the month your card expires as an integer.");
-            int expiryYear = GetIntInput("Please enter the last 2 digits of the year your cards expires as an integer.") + 2000;
+            if (expiryMonth < 1 || expiryMonth > 12)
+            {
+                Console.WriteLine("That is not a valid month. Let's try again.");
+                CardPaid();
+            }
 
+            int expiryYear = GetIntInput("Please enter the last 2 digits of the year your cards expires as an integer.") + 2000;
             if (expiryMonth < DateTime.Today.Month && expiryYear == DateTime.Today.Year || expiryYear < DateTime.Today.Year)
             { // I think cards don't expire until the end of the expiry month, so I did < instead of <=.
                 Console.WriteLine("Your card is expired. Let's try again, hopefully with a different card.");
