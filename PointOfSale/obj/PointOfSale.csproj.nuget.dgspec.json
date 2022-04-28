@@ -1,20 +1,20 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\Nick\\source\\repos\\PointOfSale\\PointOfSale\\PointOfSale.csproj": {}
+    "C:\\Users\\andre\\Dropbox\\My PC (DESKTOP-4BDI30V)\\Desktop\\NAW\\N.A.W\\PointOfSale\\PointOfSale.csproj": {}
   },
   "projects": {
-    "C:\\Users\\Nick\\source\\repos\\PointOfSale\\PointOfSale\\PointOfSale.csproj": {
+    "C:\\Users\\andre\\Dropbox\\My PC (DESKTOP-4BDI30V)\\Desktop\\NAW\\N.A.W\\PointOfSale\\PointOfSale.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\Nick\\source\\repos\\PointOfSale\\PointOfSale\\PointOfSale.csproj",
+        "projectUniqueName": "C:\\Users\\andre\\Dropbox\\My PC (DESKTOP-4BDI30V)\\Desktop\\NAW\\N.A.W\\PointOfSale\\PointOfSale.csproj",
         "projectName": "PointOfSale",
-        "projectPath": "C:\\Users\\Nick\\source\\repos\\PointOfSale\\PointOfSale\\PointOfSale.csproj",
-        "packagesPath": "C:\\Users\\Nick\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\Nick\\source\\repos\\PointOfSale\\PointOfSale\\obj\\",
+        "projectPath": "C:\\Users\\andre\\Dropbox\\My PC (DESKTOP-4BDI30V)\\Desktop\\NAW\\N.A.W\\PointOfSale\\PointOfSale.csproj",
+        "packagesPath": "C:\\Users\\andre\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\andre\\Dropbox\\My PC (DESKTOP-4BDI30V)\\Desktop\\NAW\\N.A.W\\PointOfSale\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "C:\\Users\\Nick\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\andre\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [

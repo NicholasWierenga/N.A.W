@@ -13,3 +13,18 @@ C:\Users\Nick\source\repos\PointOfSale\PointOfSale\obj\Debug\net6.0\refint\Point
 C:\Users\Nick\source\repos\PointOfSale\PointOfSale\obj\Debug\net6.0\PointOfSale.pdb
 C:\Users\Nick\source\repos\PointOfSale\PointOfSale\obj\Debug\net6.0\PointOfSale.genruntimeconfig.cache
 C:\Users\Nick\source\repos\PointOfSale\PointOfSale\obj\Debug\net6.0\ref\PointOfSale.dll
+C:\Users\andre\Dropbox\My PC (DESKTOP-4BDI30V)\Desktop\NAW\N.A.W\PointOfSale\bin\Debug\net6.0\PointOfSale.exe
+C:\Users\andre\Dropbox\My PC (DESKTOP-4BDI30V)\Desktop\NAW\N.A.W\PointOfSale\bin\Debug\net6.0\PointOfSale.deps.json
+C:\Users\andre\Dropbox\My PC (DESKTOP-4BDI30V)\Desktop\NAW\N.A.W\PointOfSale\bin\Debug\net6.0\PointOfSale.runtimeconfig.json
+C:\Users\andre\Dropbox\My PC (DESKTOP-4BDI30V)\Desktop\NAW\N.A.W\PointOfSale\bin\Debug\net6.0\PointOfSale.dll
+C:\Users\andre\Dropbox\My PC (DESKTOP-4BDI30V)\Desktop\NAW\N.A.W\PointOfSale\bin\Debug\net6.0\PointOfSale.pdb
+C:\Users\andre\Dropbox\My PC (DESKTOP-4BDI30V)\Desktop\NAW\N.A.W\PointOfSale\obj\Debug\net6.0\PointOfSale.csproj.AssemblyReference.cache
+C:\Users\andre\Dropbox\My PC (DESKTOP-4BDI30V)\Desktop\NAW\N.A.W\PointOfSale\obj\Debug\net6.0\PointOfSale.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\andre\Dropbox\My PC (DESKTOP-4BDI30V)\Desktop\NAW\N.A.W\PointOfSale\obj\Debug\net6.0\PointOfSale.AssemblyInfoInputs.cache
+C:\Users\andre\Dropbox\My PC (DESKTOP-4BDI30V)\Desktop\NAW\N.A.W\PointOfSale\obj\Debug\net6.0\PointOfSale.AssemblyInfo.cs
+C:\Users\andre\Dropbox\My PC (DESKTOP-4BDI30V)\Desktop\NAW\N.A.W\PointOfSale\obj\Debug\net6.0\PointOfSale.csproj.CoreCompileInputs.cache
+C:\Users\andre\Dropbox\My PC (DESKTOP-4BDI30V)\Desktop\NAW\N.A.W\PointOfSale\obj\Debug\net6.0\PointOfSale.dll
+C:\Users\andre\Dropbox\My PC (DESKTOP-4BDI30V)\Desktop\NAW\N.A.W\PointOfSale\obj\Debug\net6.0\refint\PointOfSale.dll
+C:\Users\andre\Dropbox\My PC (DESKTOP-4BDI30V)\Desktop\NAW\N.A.W\PointOfSale\obj\Debug\net6.0\PointOfSale.pdb
+C:\Users\andre\Dropbox\My PC (DESKTOP-4BDI30V)\Desktop\NAW\N.A.W\PointOfSale\obj\Debug\net6.0\PointOfSale.genruntimeconfig.cache
+C:\Users\andre\Dropbox\My PC (DESKTOP-4BDI30V)\Desktop\NAW\N.A.W\PointOfSale\obj\Debug\net6.0\ref\PointOfSale.dll
