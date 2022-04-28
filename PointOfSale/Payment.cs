@@ -117,15 +117,15 @@ namespace PointOfSale
                 CardPaid();
             }
 
-            long ccv = GetIntInput("Please enter your card's CCV."); // remember to change these back to ints later
+            int ccv = GetIntInput("Please enter your card's CCV."); // remember to change these back to ints later
             if (ccv.ToString().Length < 3 || ccv.ToString().Length > 4)
             {
                 Console.WriteLine("You entered non numbers or an incorrect amount of digits. Let's try again");
                 CardPaid();
             }
 
-            long expiryMonth = GetIntInput("Please enter the month your card expires as an integer.");
-            long expiryYear = GetIntInput("Please enter the last 2 digits of the year your cards expires as an integer.") + 2000;
+            int expiryMonth = GetIntInput("Please enter the month your card expires as an integer.");
+            int expiryYear = GetIntInput("Please enter the last 2 digits of the year your cards expires as an integer.") + 2000;
 
             if (expiryMonth < DateTime.Today.Month && expiryYear == DateTime.Today.Year || expiryYear < DateTime.Today.Year)
             { // I think cards don't expire until the end of the expiry month, so I did < instead of <=.
@@ -152,14 +152,14 @@ namespace PointOfSale
 
             return input;
         }
-        public long GetIntInput(string prompt)
+        public int GetIntInput(string prompt)
         {
             Console.WriteLine(prompt);
 
             string input = Console.ReadLine().ToLower().Trim();
 
             //Explain the thing below later
-            if (!long.TryParse(input, out long outputNum))
+            if (!int.TryParse(input, out int outputNum))
             {
                 Console.WriteLine("You did not enter an integer. Let's try again.");
                 return (GetIntInput(prompt));
