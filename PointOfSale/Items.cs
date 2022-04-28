@@ -38,39 +38,46 @@ namespace PointOfSale
 
         public void CheckOut()
         {
-            PrintAll();
-
-            Console.WriteLine("What item would you like to buy?");
-            string input = Console.ReadLine().Trim();
-
-            if (int.TryParse(input, out int index) && index >= 1 && index <= allItems.Count)
+            double RunningTotal = 0;
+            string UserInput;
+            do
             {
-                Console.WriteLine("You've selected: ");
-                allItems[index - 1].PrintItem();
-            }
-            else
-            {
-                Console.WriteLine("That is not a valid index integer. Let's try again.");
-                CheckOut();
-            }
+                PrintAll();
 
-            int amountOrdered = OrderAmount(index);
-            double subPrice = amountOrdered * allItems[index - 1].Price;
-            double salesTax = 0.06 * subPrice;
-            double total = subPrice + salesTax;
+                Console.WriteLine("What item would you like to buy?");
+                string input = Console.ReadLine().Trim();
 
-            
 
-            Console.WriteLine("Amount they ordered: " + amountOrdered);
-            Console.WriteLine("Subtotal: " + "$" + subPrice.ToString("0.00") + ".");
-            Console.WriteLine("Sales tax: " + "$" + salesTax.ToString("0.00") + ".");
-            Console.WriteLine("Total: " + "$" + total.ToString("0.00") + ".");
+                if (int.TryParse(input, out int index) && index >= 1 && index <= allItems.Count)
+                {
+                    Console.WriteLine("You've selected: ");
+                    allItems[index - 1].PrintItem();
+                }
+                else
+                {
+                    Console.WriteLine("That is not a valid index integer. Let's try again.");
+                    CheckOut();
+                }
 
-            Payment pay = new Payment(total); 
-            pay.Pay();
 
-            
-            
+                int amountOrdered = OrderAmount(index);
+                double subPrice = amountOrdered * allItems[index - 1].Price;
+                double salesTax = 0.06 * subPrice;
+                double total = subPrice + salesTax;
+                RunningTotal = total + RunningTotal;
+
+
+                Console.WriteLine("Amount they ordered: " + amountOrdered);
+                Console.WriteLine("Subtotal: " + "$" + subPrice.ToString("0.00") + ".");
+                Console.WriteLine("Sales tax: " + "$" + salesTax.ToString("0.00") + ".");
+                Console.WriteLine("Total: " + "$" + total.ToString("0.00") + ".");
+                Console.WriteLine();
+                Console.WriteLine("Now your total is " + RunningTotal);
+                Console.WriteLine();
+                Console.WriteLine("Would you like to add to your order? Y or N?");
+                UserInput = Console.ReadLine().Trim().ToLower();
+
+            } while (UserInput == "y");
         }
 
         private int OrderAmount(int index)
