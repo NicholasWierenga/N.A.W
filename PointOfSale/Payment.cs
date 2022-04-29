@@ -45,7 +45,7 @@ namespace PointOfSale
 
         public PayOption GetPaymentMethod()
         {
-            string input = GetStringInput("What method of payment do you want to use? We accept cash, check, or card?");
+            string input = helper.GetStringInput("What method of payment do you want to use? We accept cash, check, or card?");
 
             if (Enum.TryParse(input, out PayOption payOption) &&
                 payOption == PayOption.cash || payOption == PayOption.check || payOption == PayOption.card)
@@ -63,7 +63,7 @@ namespace PointOfSale
 
         public string CashPaid() // If we need to update TotalOwed we could change return type to double and return TotalOwed - CashPaid.
         {
-            string input = GetStringInput("How much cash are you using to pay for this order?");
+            string input = helper.GetStringInput("How much cash are you using to pay for this order?");
             
             if (double.TryParse(input, out double cashPaid) && cashPaid >= TotalOwed)
             {
@@ -83,7 +83,7 @@ namespace PointOfSale
 
         public void CheckPaid()
         {
-            int checkNum = GetIntInput("Please enter your check number."); // remember to change these back to ints later
+            int checkNum = helper.GetIntInput("Please enter your check number."); // remember to change these back to ints later
             if (checkNum.ToString().Length != 3 && checkNum.ToString().Length != 4)
             {
                 Console.WriteLine("A check number must be an integer that is 3 or 4 digits long.");
@@ -91,7 +91,7 @@ namespace PointOfSale
                 return; // we might not need this.
             }
 
-            string input = GetStringInput("How much money are you using to pay for this by check?");
+            string input = helper.GetStringInput("How much money are you using to pay for this by check?");
             if (double.TryParse(input, out double amountPaid))
             {
                 if (amountPaid < TotalOwed)
@@ -116,7 +116,7 @@ namespace PointOfSale
 
         public void CardPaid()
         {
-            string cardNumber = GetStringInput("Please enter your 16 card number.");
+            string cardNumber = helper.GetStringInput("Please enter your 16 card number.");
             if (!long.TryParse(cardNumber, out long outputNum) || cardNumber.ToString().Length != 16) 
             {  // We use a long here because an int can't have 16 digits.
 
@@ -125,7 +125,7 @@ namespace PointOfSale
                 return;
             }
 
-            int cvv = GetIntInput("Please enter your card's CCV."); // remember to change these back to ints later
+            int cvv = helper.GetIntInput("Please enter your card's CCV."); // remember to change these back to ints later
             if (cvv.ToString().Length == 3 || cvv.ToString().Length == 4)
             {
                 Console.WriteLine("A CVV must be an integer that is 3 or 4 digits long.");
@@ -133,7 +133,7 @@ namespace PointOfSale
                 return;
             }
 
-            int expiryMonth = GetIntInput("Please enter the month your card expires as an integer.");
+            int expiryMonth = helper.GetIntInput("Please enter the month your card expires as an integer.");
             if (expiryMonth < 1 || expiryMonth > 12)
             {
                 Console.WriteLine("That is not a valid month. Let's try again.");
@@ -143,7 +143,7 @@ namespace PointOfSale
 
             // need to fix card year expired when enter it ends the program
 
-            int expiryYear = GetIntInput("Please enter the last 2 digits of the year your cards expires as an integer.") + 2000;
+            int expiryYear = helper.GetIntInput("Please enter the last 2 digits of the year your cards expires as an integer.") + 2000;
             if (expiryMonth < DateTime.Today.Month && expiryYear == DateTime.Today.Year || expiryYear < DateTime.Today.Year)
             { // I think cards don't expire until the end of the expiry month, so I did < instead of <=.
                 Console.WriteLine("Your card is expired.");
@@ -151,38 +151,5 @@ namespace PointOfSale
                 return;
             }
         }
-
-        public string GetStringInput(string prompt)
-        {
-            Console.WriteLine(prompt);
-
-            string input = Console.ReadLine().ToLower().Trim();
-
-            //Explain the thing below later
-            if (double.TryParse(input, out double CashPaid) && CashPaid.ToString().Length > CashPaid.ToString("0.00").Length)
-            {
-                Console.WriteLine("You entered a bad payment amount. Please ensure that the payment is only to two decimal places at most.");
-                Console.WriteLine("Let's try again.");
-                return (GetStringInput(prompt));
-            }
-
-            return input;
-        }
-        public int GetIntInput(string prompt)
-        {
-            Console.WriteLine(prompt);
-
-            string input = Console.ReadLine().ToLower().Trim();
-
-            //Explain the thing below later
-            if (!int.TryParse(input, out int outputNum))
-            {
-                Console.WriteLine("You did not enter an integer. Let's try again.");
-                return (GetIntInput(prompt));
-            }
-
-            return outputNum;
-        }
-
     }
 }

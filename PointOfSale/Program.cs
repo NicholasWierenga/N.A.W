@@ -9,32 +9,18 @@
             Console.WriteLine("              Welcome to N.A.W.");
             Console.WriteLine("Take a moment to look over the menu and I will take your order!");
 
-                Items items = new Items();
+                
                 do
                 {
+                    Items items = new Items();
                     items.CheckOut();
-                } while (RunAgain());
+                    Console.WriteLine("Would you like to run the program again? y/n");
+                } while (helper.RunAgain());
+
+            Console.WriteLine("Goodbye.");
             
             
         }
-        public static bool RunAgain()
-        {
-            Console.WriteLine("Would you like to run the program again? y/n");
-            string answer = Console.ReadLine().ToLower().Trim();
-            if (answer == "y")
-            {
-                return true;
-            }
-            else if (answer == "n")
-            {
-                Console.WriteLine("Goodbye.");
-                return false;
-            }
-            else
-            {
-                Console.WriteLine("I didn't understand that. Let's try again.");
-                return RunAgain();
-            }
-        }
+        
     }
 }
