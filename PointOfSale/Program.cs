@@ -5,12 +5,36 @@
         
         public static void Main()
         {
-            Console.WriteLine("Welcome to N.A.W."); // maybe call it Wendy's?
+           
+            {
 
-            Items items = new Items();
+                Console.WriteLine("Welcome to N.A.W."); // maybe call it Wendy's?
 
-            items.CheckOut();
-            
+                Items items = new Items();
+                do
+                {
+                    items.CheckOut();
+                } while (RunAgain());
+            }
+        }
+        public static bool RunAgain()
+        {
+            Console.WriteLine("Would you like to run the program again? y/n");
+            string answer = Console.ReadLine().ToLower().Trim();
+            if (answer == "y")
+            {
+                return true;
+            }
+            else if (answer == "n")
+            {
+                Console.WriteLine("Goodbye.");
+                return false;
+            }
+            else
+            {
+                Console.WriteLine("I didn't understand that. Let's try again.");
+                return RunAgain();
+            }
         }
     }
 }

@@ -78,34 +78,24 @@ namespace PointOfSale
                 Console.WriteLine("You've given less than the amount you owe. Let's try again.");
                 return CashPaid();
             }
+            
         }
 
         public string CheckPaid()
         {
-            string input = GetStringInput("How much money are you using to pay for this by check?");
 
-            if (double.TryParse(input, out double amountPaid))
+            int ccv = GetIntInput("Please enter the last 3 or 4 digits of your check."); // remember to change these back to ints later
+            if (ccv.ToString().Length < 3 || ccv.ToString().Length > 4)
             {
-                if (amountPaid < TotalOwed)
-                {
-                    Console.WriteLine("Sorry, but this does not cover the bill. Please write one for the exact total owed.");
-                    return CheckPaid();
-                }
-                else if (amountPaid > TotalOwed)
-                {
-                    Console.WriteLine("Sorry, but we don't give change for payments involving checks. Please write one for the exact total owed.");
-                    return CheckPaid();
-                }
-                else
-                {
-                    return "Thanks for your business. Come again!";
-                }
+                Console.WriteLine("You entered non numbers or an incorrect amount of digits. Let's try again");
+                return CheckPaid();
             }
             else
             {
-                Console.WriteLine("This is not a valid check. Let's try again.");
-                return CheckPaid();
+                Console.WriteLine("Awesome");
+                
             }
+            return "Thank you, please come again soon!";
         }
 
         public string CardPaid()

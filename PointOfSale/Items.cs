@@ -26,7 +26,7 @@ namespace PointOfSale
         public Items()
         {
         }
-        
+
         public void PrintAll()
         {
             for (int i = 0; i < allItems.Count; i++)
@@ -64,8 +64,8 @@ namespace PointOfSale
 
 
                 int amountOrdered = OrderAmount(index);
-                
-                
+
+
                 double subPrice = amountOrdered * allItems[index - 1].Price;
                 double salesTax = 0.06 * subPrice;
                 double total = subPrice + salesTax;
@@ -73,16 +73,16 @@ namespace PointOfSale
 
 
                 custFoodPicked.Add(allItems[index - 1]);
-                
-                
+
+
                 orderDetails.Add("You ordered " + amountOrdered + " of " + allItems[index - 1].Name +
                         ", which costs $" + (amountOrdered * allItems[index - 1].Price).ToString("0.00") + ".");
-                
+
                 for (int i = 0; i < orderDetails.Count; i++)
                 {
                     Console.WriteLine(orderDetails[i]);
                 }
-                
+
                 //Console.WriteLine("Amount they ordered: " + amountOrdered);
                 Console.WriteLine(("Subtotal: " + "$" + subPrice.ToString("0.00") + ".").PadLeft(30));
                 Console.WriteLine(("Sales tax: " + "$" + salesTax.ToString("0.00") + ".").PadLeft(30));
@@ -91,13 +91,18 @@ namespace PointOfSale
                 Console.WriteLine(("Grand total: " + "$" + RunningTotal.ToString("0.00") + ".").PadLeft(30));
                 Console.WriteLine();
                 Console.WriteLine("Will that complete your order? Y or N?");
-                
+
                 UserInput = Console.ReadLine().Trim().ToLower();
 
-            } while (UserInput == "y");
+                
+
+            } while (UserInput == "n");
 
             Payment customerPay = new Payment(RunningTotal);
             customerPay.Pay();
+          
+           
+            
         }
 
         public int OrderAmount(int index)
@@ -120,6 +125,7 @@ namespace PointOfSale
 
             } while (true);
         }
+       
     }
 }
 
