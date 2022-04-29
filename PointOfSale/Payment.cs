@@ -111,6 +111,7 @@ namespace PointOfSale
             {
                 Console.WriteLine("This is not a valid check. Let's try again.");
                 CheckPaid();
+                return;
             }
         }
 
@@ -128,7 +129,7 @@ namespace PointOfSale
             int cvv = helper.GetIntInput("Please enter your card's CCV."); // remember to change these back to ints later
             if (cvv.ToString().Length == 3 || cvv.ToString().Length == 4)
             {
-                Console.WriteLine("A CVV must be an integer that is 3 or 4 digits long.");
+                Console.WriteLine("A CVV must be an integer that is 3 or 4 digits long. Let's try again.");
                 CardPaid();
                 return;
             }
@@ -141,12 +142,10 @@ namespace PointOfSale
                 return;
             }
 
-            // need to fix card year expired when enter it ends the program
-
             int expiryYear = helper.GetIntInput("Please enter the last 2 digits of the year your cards expires as an integer.") + 2000;
             if (expiryMonth < DateTime.Today.Month && expiryYear == DateTime.Today.Year || expiryYear < DateTime.Today.Year)
             { // I think cards don't expire until the end of the expiry month, so I did < instead of <=.
-                Console.WriteLine("Your card is expired.");
+                Console.WriteLine("Your card is expired. Let's try again.");
                 CardPaid();
                 return;
             }
