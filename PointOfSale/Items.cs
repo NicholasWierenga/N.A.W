@@ -23,6 +23,10 @@ namespace PointOfSale
             new Products("Water", Category.Drink, "Plain h2o", 0.99),
             new Products("Slush", Category.Drink, "Cold drink", 5.00),
         };
+
+        List<Products> custFoodPicked = new List<Products>();
+        List<string> orderDetails = new List<string>();
+
         public Items()
         {
         }
@@ -39,9 +43,10 @@ namespace PointOfSale
         public void CheckOut()
         {
             double RunningTotal = 0;
+            double subPrice;
+            double salesTax;
             string UserInput;
-            List<Products> custFoodPicked = new List<Products>();
-            List<string> orderDetails = new List<string>();
+            
 
             do
             {
@@ -63,10 +68,11 @@ namespace PointOfSale
                 }
 
                 int amountOrdered = OrderAmount(index);
-
-
-                double subPrice = amountOrdered * allItems[index - 1].Price;
-                double salesTax = 0.06 * subPrice;
+                Console.WriteLine();
+                
+                
+                subPrice = amountOrdered * allItems[index - 1].Price;
+                salesTax = 0.06 * subPrice;
                 double total = subPrice + salesTax;
                 RunningTotal = total + RunningTotal;
 
@@ -98,10 +104,23 @@ namespace PointOfSale
             } while (UserInput == "n");
 
             Payment customerPay = new Payment(RunningTotal);
-            customerPay.Pay();
-          
-           
-            
+            string payMessage = customerPay.Pay();
+
+            Console.WriteLine("===================RECEIPT===================");
+
+            for (int i = 0; i < orderDetails.Count; i++)
+            {
+                Console.WriteLine(orderDetails[i]);
+            }
+
+            Console.WriteLine(("Subtotal: " + "$" + subPrice.ToString("0.00") + ".").PadLeft(30));
+            Console.WriteLine(("Sales tax: " + "$" + salesTax.ToString("0.00") + ".").PadLeft(30));
+            //Console.WriteLine("Total: " + "$" + total.ToString("0.00") + ".");
+            Console.WriteLine("____________________________________________");
+            Console.WriteLine(("Grand total: " + "$" + RunningTotal.ToString("0.00") + ".").PadLeft(30));
+            Console.WriteLine(payMessage);
+            Console.WriteLine();
+            Console.WriteLine("Thank you for your business. Please come again!");
         }
 
         public int OrderAmount(int index)
