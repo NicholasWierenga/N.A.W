@@ -52,7 +52,7 @@ namespace PointOfSale
             {
                 PrintAll();
                 Console.WriteLine();
-                Console.WriteLine("What item would you like to buy?");
+                Console.WriteLine("What item number from the menu would you like to order?");
                 string order = Console.ReadLine().Trim();
 
 
@@ -63,12 +63,12 @@ namespace PointOfSale
                 }
                 else
                 {
-                    Console.WriteLine("That is not a valid item. Let's try again.");
+                    Console.WriteLine("I'm sorry, we do not have that item. Let's try again.");
                     CheckOut();
                 }
 
-
                 int amountOrdered = OrderAmount(index);
+                Console.WriteLine();
                 
                 
                 subPrice = amountOrdered * allItems[index - 1].Price;
