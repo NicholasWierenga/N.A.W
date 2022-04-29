@@ -78,6 +78,7 @@ namespace PointOfSale
                 Console.WriteLine("You've given less than the amount you owe. Let's try again.");
                 return CashPaid();
             }
+            
         }
 
         public void CheckPaid()

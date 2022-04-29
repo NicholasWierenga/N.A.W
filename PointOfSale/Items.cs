@@ -77,19 +77,17 @@ namespace PointOfSale
                 RunningTotal = total + RunningTotal;
 
 
-                custFoodPicked.Add(allItems[index - 1]); // Maybe do an if or something to merge orders, so if someone order 1 burger, then another,
-                                                         // then another, and print out a bunch of lines of them order the same item.
-                                                         // If it's really bad we could make a new object just to hold products obj and the amount ordered or not bother.
+                custFoodPicked.Add(allItems[index - 1]);
 
 
                 orderDetails.Add("You ordered " + amountOrdered + " of " + allItems[index - 1].Name +
                         ", which costs $" + (amountOrdered * allItems[index - 1].Price).ToString("0.00") + ".");
-                
+
                 for (int i = 0; i < orderDetails.Count; i++)
                 {
                     Console.WriteLine(orderDetails[i]);
                 }
-                
+
                 //Console.WriteLine("Amount they ordered: " + amountOrdered);
                 Console.WriteLine(("Subtotal: " + "$" + subPrice.ToString("0.00") + ".").PadLeft(30));
                 Console.WriteLine(("Sales tax: " + "$" + salesTax.ToString("0.00") + ".").PadLeft(30));
@@ -97,11 +95,13 @@ namespace PointOfSale
                 Console.WriteLine("____________________________________________");
                 Console.WriteLine(("Grand total: " + "$" + RunningTotal.ToString("0.00") + ".").PadLeft(30));
                 Console.WriteLine();
-                Console.WriteLine("Do you want to add to your order? Y or N?");
-                
+                Console.WriteLine("Will that complete your order? Y or N?");
+
                 UserInput = Console.ReadLine().Trim().ToLower();
 
-            } while (UserInput == "y");
+                
+
+            } while (UserInput == "n");
 
             Payment customerPay = new Payment(RunningTotal);
             string payMessage = customerPay.Pay();
@@ -121,8 +121,6 @@ namespace PointOfSale
             Console.WriteLine(payMessage);
             Console.WriteLine();
             Console.WriteLine("Thank you for your business. Please come again!");
-
-
         }
 
         public int OrderAmount(int index)
@@ -145,6 +143,7 @@ namespace PointOfSale
 
             } while (true);
         }
+       
     }
 }
 
