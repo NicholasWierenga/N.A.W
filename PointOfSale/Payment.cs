@@ -82,7 +82,11 @@ namespace PointOfSale
 
         public string CheckPaid()
         {
-            string input = GetStringInput("How much money are you using to pay for this by check?");
+            string input = GetStringInput("What is the total amount of your check?");
+            // something is wrong with this
+            // are we to take in check number not check amount?
+            // also when entering amount of check this dumps
+            // after entering amount of check program ends
 
             if (double.TryParse(input, out double amountPaid))
             {
@@ -110,8 +114,8 @@ namespace PointOfSale
 
         public string CardPaid()
         {
-            string cardNumber = GetStringInput("Please enter your card number.");
-            if (!long.TryParse(cardNumber, out long outputNum) || cardNumber.ToString().Length != 16)
+            string cardNumber = GetStringInput("Please enter your 10 digit card number.");
+            if (!long.TryParse(cardNumber, out long outputNum) || cardNumber.ToString().Length != 10)
             {
                 Console.WriteLine("You entered non numbers or an incorrect amount of digits. Let's try again");
                 return CardPaid();
@@ -130,6 +134,8 @@ namespace PointOfSale
                 Console.WriteLine("That is not a valid month. Let's try again.");
                 return CardPaid();
             }
+
+            // need to fix card year expired when enter it ends the program
 
             int expiryYear = GetIntInput("Please enter the last 2 digits of the year your cards expires as an integer.") + 2000;
             if (expiryMonth < DateTime.Today.Month && expiryYear == DateTime.Today.Year || expiryYear < DateTime.Today.Year)

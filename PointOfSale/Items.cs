@@ -26,13 +26,13 @@ namespace PointOfSale
         public Items()
         {
         }
-        
+
         public void PrintAll()
         {
             for (int i = 0; i < allItems.Count; i++)
             {
-                Console.WriteLine((allItems[i].Name + " Price: $" + allItems[i].Price.ToString("0.00") + "-"
-                    + allItems[i].Desc + ".").PadRight(45) + " Please enter " + (i + 1) + " to order.");
+                Console.WriteLine((i + 1) + "  " + allItems[i].Name + " ............................. " + "Price: $".PadLeft(10) + allItems[i].Price.ToString("0.00") + ".");
+                Console.WriteLine("(".PadLeft(12) + allItems[i].Desc + ")  ");
             }
         }
 
@@ -47,7 +47,7 @@ namespace PointOfSale
             {
                 PrintAll();
                 Console.WriteLine();
-                Console.WriteLine("What item would you like to buy?");
+                Console.WriteLine("What item number from the menu would you like to order?");
                 string order = Console.ReadLine().Trim();
 
 
@@ -58,12 +58,12 @@ namespace PointOfSale
                 }
                 else
                 {
-                    Console.WriteLine("That is not a valid item. Let's try again.");
+                    Console.WriteLine("I'm sorry, we do not have that item. Let's try again.");
                     CheckOut();
                 }
 
-
                 int amountOrdered = OrderAmount(index);
+                Console.WriteLine();
                 
                 
                 double subPrice = amountOrdered * allItems[index - 1].Price;
@@ -90,7 +90,7 @@ namespace PointOfSale
                 Console.WriteLine("____________________________________________");
                 Console.WriteLine(("Grand total: " + "$" + RunningTotal.ToString("0.00") + ".").PadLeft(30));
                 Console.WriteLine();
-                Console.WriteLine("Will that complete your order? Y or N?");
+                Console.WriteLine("Do you want to add to your order? Y or N?");
                 
                 UserInput = Console.ReadLine().Trim().ToLower();
 
