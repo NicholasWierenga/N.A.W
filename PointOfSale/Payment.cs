@@ -82,8 +82,6 @@ namespace PointOfSale
 
         public void CheckPaid()
         {
-            string input = GetStringInput("What is the total amount of your check?");
-
             int checkNum = GetIntInput("Please enter your check number."); // remember to change these back to ints later
             if (checkNum.ToString().Length == 3 || checkNum.ToString().Length == 4)
             {
