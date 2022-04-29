@@ -24,7 +24,7 @@ namespace PointOfSale
             new Products("Slush", Category.Drink, "Cold drink", 5.00),
         };
 
-        //List<Products> custFoodPicked = new List<Products>(); // We never use this, but we might later. It's to hold the items user orders.
+
         List<string> orderDetails = new List<string>();
 
         public Items()
@@ -87,7 +87,7 @@ namespace PointOfSale
                 PrintCurrentOrder(subTotal, salesTax, total);
 
                 Console.WriteLine();
-                Console.WriteLine("Do you want to order anything else? y/n");
+                Console.WriteLine("Would you like to order anything else today? y/n");
 
             } while (helper.RunAgain());
 
@@ -142,7 +142,7 @@ namespace PointOfSale
             }
             else
             {
-                Console.WriteLine("That is not an integer. Let's try again.");
+                Console.WriteLine("That is not a valid item number. Let's try again.");
                 return OrderAmount(index);
             }
         }
