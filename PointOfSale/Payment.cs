@@ -82,6 +82,7 @@ namespace PointOfSale
 
         public void CheckPaid()
         {
+            string input = GetStringInput("What is the total amount of your check?");
 
             int checkNum = GetIntInput("Please enter your check number."); // remember to change these back to ints later
             if (checkNum.ToString().Length < 3 || checkNum.ToString().Length > 4)
@@ -119,6 +120,7 @@ namespace PointOfSale
             string cardNumber = GetStringInput("Please enter your 16 card number.");
             if (!long.TryParse(cardNumber, out long outputNum) || cardNumber.ToString().Length != 16) 
             {  // We use a long here because an int can't have 16 digits.
+
                 Console.WriteLine("You entered non numbers or an incorrect amount of digits. Let's try again");
                 CardPaid();
                 return;
@@ -139,6 +141,8 @@ namespace PointOfSale
                 CardPaid();
                 return;
             }
+
+            // need to fix card year expired when enter it ends the program
 
             int expiryYear = GetIntInput("Please enter the last 2 digits of the year your cards expires as an integer.") + 2000;
             if (expiryMonth < DateTime.Today.Month && expiryYear == DateTime.Today.Year || expiryYear < DateTime.Today.Year)
