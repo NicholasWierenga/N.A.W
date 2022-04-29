@@ -14,10 +14,10 @@ namespace PointOfSale
             new Products("Nuggets", Category.Entree, "8 chicken nuggets", 4.50),
             new Products("Taco", Category.Entree, "A taco", 3.25),
             new Products("Hot dog", Category.Entree, "A hot dog", 2.00),
-            new Products("Fries", Category.Side, "Half pound of curly fries", 1.50),
+            new Products("Fries", Category.Side, "Curly fries", 1.50),
             new Products("Tots", Category.Side, "Tater tots", 3.25),
-            new Products("Onion Rings", Category.Side, "8 big onion rings", 2.50),
-            new Products("Cole Slaw", Category.Side, "It's just cole slaw", 1.25),
+            new Products("Onion Rings", Category.Side, "6 big rings", 2.50),
+            new Products("Cole Slaw", Category.Side, "It's cole slaw", 1.25),
             new Products("Lemonade", Category.Drink, "Sour drink", 5.00),
             new Products("Coke", Category.Drink, "Coca-cola", 2.00),
             new Products("Water", Category.Drink, "Plain h2o", 0.99),
@@ -31,8 +31,8 @@ namespace PointOfSale
         {
             for (int i = 0; i < allItems.Count; i++)
             {
-                Console.WriteLine((allItems[i].Name + " Price: $" + allItems[i].Price.ToString("0.00") + "-"
-                    + allItems[i].Desc + ".").PadRight(45) + " Please enter " + (i + 1) + " to order.");
+                Console.WriteLine((i + 1) + "  " + allItems[i].Name + " ............................. " + "Price: $".PadLeft(10) + allItems[i].Price.ToString("0.00") + ".");
+                Console.WriteLine("(".PadLeft(12) + allItems[i].Desc + ")  ");
             }
         }
 
@@ -47,7 +47,7 @@ namespace PointOfSale
             {
                 PrintAll();
                 Console.WriteLine();
-                Console.WriteLine("What item would you like to buy?");
+                Console.WriteLine("What item number from the menu would you like to order?");
                 string order = Console.ReadLine().Trim();
 
 
@@ -58,10 +58,9 @@ namespace PointOfSale
                 }
                 else
                 {
-                    Console.WriteLine("That is not a valid item. Let's try again.");
+                    Console.WriteLine("I'm sorry, we do not have that item. Let's try again.");
                     CheckOut();
                 }
-
 
                 int amountOrdered = OrderAmount(index);
 
