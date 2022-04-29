@@ -63,7 +63,7 @@ namespace PointOfSale
                 }
                 else
                 {
-                    return (int)numberOrdered; // We parse as double and cast as int in the end to check for integers like 1.0.
+                    return (int)numberOrdered; // We parse as double and mod 1 then cast as int in the end to check for integers like 1.0.
                 }
             }
             else
