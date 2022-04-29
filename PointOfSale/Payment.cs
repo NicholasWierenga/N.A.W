@@ -23,14 +23,14 @@ namespace PointOfSale
         {
             this.TotalOwed = TotalOwed;
         }
-        public void Pay()
+        public string Pay()
         {
             PayOption option = GetPaymentMethod();
-
+            string output = "";
             switch (option)
             {
                 case PayOption.cash:
-                    CashPaid();
+                    output = CashPaid();
                     break;
                 case PayOption.check:
                     CheckPaid();
@@ -39,9 +39,8 @@ namespace PointOfSale
                     CardPaid();
                     break;
             }
-
-            Console.WriteLine("You paid with " + option.ToString() + ".");
-            Console.WriteLine("Thank you for your business. Please come again!");
+            output = "You paid with " + option.ToString() + " for a total of $" + TotalOwed.ToString("0.00") + "." + output;
+            return output;
         }
 
         public PayOption GetPaymentMethod()
@@ -62,7 +61,7 @@ namespace PointOfSale
             }
         }
 
-        public void CashPaid() // If we need to update TotalOwed we could change return type to double and return TotalOwed - CashPaid.
+        public string CashPaid() // If we need to update TotalOwed we could change return type to double and return TotalOwed - CashPaid.
         {
             string input = GetStringInput("How much cash are you using to pay for this order?");
             
@@ -70,13 +69,14 @@ namespace PointOfSale
             {
                 if (cashPaid > TotalOwed) // We only want to tell a customer their change if they're actually getting some.
                 {
-                    Console.Write("Your change is: $" + (cashPaid - TotalOwed).ToString("0.00") + ".");
+                    return "\nYour change is: $" + (cashPaid - TotalOwed).ToString("0.00") + ".";
                 }
+                return ""; // For when customer pays exact amount.
             }
             else
             {
                 Console.WriteLine("You've given less than the amount you owe. Let's try again.");
-                CashPaid();
+                return CashPaid();
             }
         }
 
@@ -84,7 +84,7 @@ namespace PointOfSale
         {
 
             int checkNum = GetIntInput("Please enter your check number."); // remember to change these back to ints later
-            if (checkNum.ToString().Length < 3 || checkNum.ToString().Length > 4)
+            if (checkNum.ToString().Length == 3 || checkNum.ToString().Length == 4)
             {
                 Console.WriteLine("A check number must be an integer that is 3 or 4 digits long.");
                 CheckPaid();
@@ -125,7 +125,7 @@ namespace PointOfSale
             }
 
             int cvv = GetIntInput("Please enter your card's CCV."); // remember to change these back to ints later
-            if (cvv.ToString().Length < 3 || cvv.ToString().Length > 4)
+            if (cvv.ToString().Length == 3 || cvv.ToString().Length == 4)
             {
                 Console.WriteLine("A CVV must be an integer that is 3 or 4 digits long.");
                 CardPaid();
@@ -143,7 +143,7 @@ namespace PointOfSale
             int expiryYear = GetIntInput("Please enter the last 2 digits of the year your cards expires as an integer.") + 2000;
             if (expiryMonth < DateTime.Today.Month && expiryYear == DateTime.Today.Year || expiryYear < DateTime.Today.Year)
             { // I think cards don't expire until the end of the expiry month, so I did < instead of <=.
-                Console.WriteLine("Your card is expired. Let's try again, hopefully with a different card.");
+                Console.WriteLine("Your card is expired.");
                 CardPaid();
                 return;
             }
