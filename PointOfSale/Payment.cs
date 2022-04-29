@@ -84,7 +84,7 @@ namespace PointOfSale
         public void CheckPaid()
         {
             int checkNum = GetIntInput("Please enter your check number."); // remember to change these back to ints later
-            if (checkNum.ToString().Length == 3 || checkNum.ToString().Length == 4)
+            if (checkNum.ToString().Length != 3 && checkNum.ToString().Length != 4)
             {
                 Console.WriteLine("A check number must be an integer that is 3 or 4 digits long.");
                 CheckPaid();
