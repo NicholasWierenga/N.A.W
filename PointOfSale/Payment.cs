@@ -27,6 +27,7 @@ namespace PointOfSale
         {
             PayOption option = GetPaymentMethod();
             string output = "";
+
             switch (option)
             {
                 case PayOption.cash:
@@ -39,7 +40,8 @@ namespace PointOfSale
                     CardPaid();
                     break;
             }
-            output = "You paid with " + option.ToString() + " for a total of $" + TotalOwed.ToString("0.00") + "." + output;
+
+            output = "You paid with " + option.ToString() + "." + output;
             return output;
         }
 
@@ -69,7 +71,7 @@ namespace PointOfSale
             {
                 if (cashPaid > TotalOwed) // We only want to tell a customer their change if they're actually getting some.
                 {
-                    return "\nYour change is: $" + (cashPaid - TotalOwed).ToString("0.00") + ".";
+                    return "\n You handed me $"+(cashPaid.ToString("0.00")) +"."+"\nYour change is: $" + (cashPaid - TotalOwed).ToString("0.00") + ".";
                 }
                 return ""; // For when customer pays exact amount.
             }
@@ -91,7 +93,7 @@ namespace PointOfSale
                 return; // we might not need this.
             }
 
-            string input = helper.GetStringInput("How much money are you using to pay for this by check?");
+            string input = helper.GetStringInput("What is the check amount?");
             if (double.TryParse(input, out double amountPaid))
             {
                 if (amountPaid < TotalOwed)
@@ -126,10 +128,10 @@ namespace PointOfSale
                 return;
             }
 
-            int cvv = helper.GetIntInput("Please enter your card's CCV."); // remember to change these back to ints later
-            if (cvv.ToString().Length == 3 || cvv.ToString().Length == 4)
+            int cvv = helper.GetIntInput("Please enter your card's CVV."); // remember to change these back to ints later
+            if (cvv.ToString().Length != 3 && cvv.ToString().Length != 4)
             {
-                Console.WriteLine("A CVV must be an integer that is 3 or 4 digits long. Let's try again.");
+                Console.WriteLine("A CVV must be a 3 or 4 digit number. Let's try again.");
                 CardPaid();
                 return;
             }
