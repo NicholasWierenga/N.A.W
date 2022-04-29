@@ -14,7 +14,6 @@ namespace PointOfSale
     }
     class Products
     {
-
         public string Name { get; set; }
         public Category Category { get; set; }
         public string Desc { get; set; }
@@ -26,11 +25,6 @@ namespace PointOfSale
             this.Category = Category;
             this.Desc = Desc;
             this.Price = Price;
-        }
-
-        public virtual void PrintItem()
-        {
-            Console.WriteLine(Name + " for " + "$" + Price.ToString("0.00") + ".");
         }
     }
 }
