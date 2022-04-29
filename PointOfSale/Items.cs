@@ -14,10 +14,10 @@ namespace PointOfSale
             new Products("Nuggets", Category.Entree, "8 chicken nuggets", 4.50),
             new Products("Taco", Category.Entree, "A taco", 3.25),
             new Products("Hot dog", Category.Entree, "A hot dog", 2.00),
-            new Products("Fries", Category.Side, "Half pound of curly fries", 1.50),
+            new Products("Fries", Category.Side, "Curly fries", 1.50),
             new Products("Tots", Category.Side, "Tater tots", 3.25),
-            new Products("Onion Rings", Category.Side, "8 big onion rings", 2.50),
-            new Products("Cole Slaw", Category.Side, "It's just cole slaw", 1.25),
+            new Products("Onion Rings", Category.Side, "6 big rings", 2.50),
+            new Products("Cole Slaw", Category.Side, "It's cole slaw", 1.25),
             new Products("Lemonade", Category.Drink, "Sour drink", 5.00),
             new Products("Coke", Category.Drink, "Coca-cola", 2.00),
             new Products("Water", Category.Drink, "Plain h2o", 0.99),
@@ -72,9 +72,11 @@ namespace PointOfSale
                 RunningTotal = total + RunningTotal;
 
 
-                custFoodPicked.Add(allItems[index - 1]);
-                
-                
+                custFoodPicked.Add(allItems[index - 1]); // Maybe do an if or something to merge orders, so if someone order 1 burger, then another,
+                                                         // then another, and print out a bunch of lines of them order the same item.
+                                                         // If it's really bad we could make a new object just to hold products obj and the amount ordered or not bother.
+
+
                 orderDetails.Add("You ordered " + amountOrdered + " of " + allItems[index - 1].Name +
                         ", which costs $" + (amountOrdered * allItems[index - 1].Price).ToString("0.00") + ".");
                 
