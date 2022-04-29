@@ -42,7 +42,7 @@ namespace PointOfSale
 
         public void CheckOut()
         {
-            double subPrice = 0;
+            double subTotal = 0;
             double salesTax = 0;
             double total;
             
@@ -58,34 +58,40 @@ namespace PointOfSale
                 if (int.TryParse(order, out int index) && index >= 1 && index <= allItems.Count)
                 {
                     Console.WriteLine("You've selected: ");
-                    allItems[index - 1].PrintItem();
+                    Console.WriteLine(allItems[index - 1].Name + " for " + "$" + allItems[index - 1].Price.ToString("0.00") + ".");
+                }
+                else if (order.Length == 0)
+                {
+                    Console.WriteLine("You have to order something.");
+                    CheckOut();
+                    return;
                 }
                 else
                 {
                     Console.WriteLine("I'm sorry, we do not have that item. Let's try again.");
                     CheckOut();
+                    return;
                 }
 
                 int amountOrdered = OrderAmount(index);
                 Console.WriteLine();
                 
-                
-                subPrice = subPrice + amountOrdered * allItems[index - 1].Price;
-                salesTax = 0.06 * subPrice;
-                total = subPrice + salesTax;
+                subTotal = subTotal + amountOrdered * allItems[index - 1].Price;
+                salesTax = 0.06 * subTotal;
+                total = subTotal + salesTax;
 
                 //custFoodPicked.Add(allItems[index - 1]); // Adds the item they ordered to the list of items they ordered.
                 orderDetails.Add("You ordered " + amountOrdered + " of " + allItems[index - 1].Name +
                         ", which costs $" + (amountOrdered * allItems[index - 1].Price).ToString("0.00") + ".");
 
-                PrintCurrentOrder(subPrice, salesTax, total);
+                PrintCurrentOrder(subTotal, salesTax, total);
 
                 Console.WriteLine();
                 Console.WriteLine("Do you want to order anything else? y/n");
 
             } while (helper.RunAgain());
 
-            CompleteOrder(subPrice, salesTax, total);
+            CompleteOrder(subTotal, salesTax, total);
 
         }
 
@@ -122,19 +128,23 @@ namespace PointOfSale
 
             string input = Console.ReadLine().Trim();
 
-            do
+            if (double.TryParse(input, out double numberOrdered) && numberOrdered % 1 == 0)
             {
-                if (int.TryParse(input, out int numberOrdered) && numberOrdered > 0)
+                if (numberOrdered <= 0)
                 {
-                    return numberOrdered;
+                    Console.WriteLine("That is not a correct amount ordered.");
+                    return OrderAmount(index);
                 }
                 else
                 {
-                    Console.WriteLine("That is not a number. Let's try again.");
-                    return OrderAmount(index);
+                    return (int)numberOrdered; // We parse as double and cast as int in the end to check for integers like 1.0.
                 }
-
-            } while (true);
+            }
+            else
+            {
+                Console.WriteLine("That is not an integer. Let's try again.");
+                return OrderAmount(index);
+            }
         }
        
     }
