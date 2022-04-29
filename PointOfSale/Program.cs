@@ -9,6 +9,8 @@
             Console.WriteLine("              Welcome to N.A.W.");
             Console.WriteLine("Take a moment to look over the menu and I will take your order!");
 
+            Console.WriteLine(4134.ToString().Length);
+
                 Items items = new Items();
                 do
                 {
