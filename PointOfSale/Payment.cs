@@ -16,12 +16,13 @@ namespace PointOfSale
     class Payment
     {
         public double TotalOwed { get; set; }
-        //public PayOption Method { get; set; } // I don't know if we need this.
+        public int padLength { get; set; }
 
 
-        public Payment(double TotalOwed)
+        public Payment(double TotalOwed, int padLength)
         {
             this.TotalOwed = TotalOwed;
+            this.padLength = padLength;
         }
         public string Pay()
         {
@@ -30,7 +31,7 @@ namespace PointOfSale
             switch (option)
             {
                 case PayOption.cash:
-                    output = CashPaid();
+                    output = "\n" + CashPaid();
                     break;
                 case PayOption.check:
                     CheckPaid();
@@ -39,13 +40,14 @@ namespace PointOfSale
                     CardPaid();
                     break;
             }
-            output = "You paid with " + option.ToString() + " for a total of $" + TotalOwed.ToString("0.00") + "." + output;
+            output = ("Paid by " + option.ToString()).PadRight(padLength) + "$" + TotalOwed.ToString("0.00") + "."
+                + output;
             return output;
         }
 
         public PayOption GetPaymentMethod()
         {
-            string input = helper.GetStringInput("What method of payment do you want to use? We accept cash, check, or card?");
+            string input = Helper.GetStringInput("What method of payment do you want to use? We accept cash, check, or card?");
 
             if (Enum.TryParse(input, out PayOption payOption) &&
                 payOption == PayOption.cash || payOption == PayOption.check || payOption == PayOption.card)
@@ -63,13 +65,13 @@ namespace PointOfSale
 
         public string CashPaid() // If we need to update TotalOwed we could change return type to double and return TotalOwed - CashPaid.
         {
-            string input = helper.GetStringInput("How much cash are you using to pay for this order?");
+            string input = Helper.GetStringInput("How much cash are you using to pay for this order?");
             
             if (double.TryParse(input, out double cashPaid) && cashPaid >= TotalOwed)
             {
                 if (cashPaid > TotalOwed) // We only want to tell a customer their change if they're actually getting some.
                 {
-                    return "\nYour change is: $" + (cashPaid - TotalOwed).ToString("0.00") + ".";
+                    return "Change is ".PadRight(padLength) + "$" + (cashPaid - TotalOwed).ToString("0.00") + ".";
                 }
                 return ""; // For when customer pays exact amount.
             }
@@ -83,7 +85,7 @@ namespace PointOfSale
 
         public void CheckPaid()
         {
-            int checkNum = helper.GetIntInput("Please enter your check number."); // remember to change these back to ints later
+            int checkNum = Helper.GetIntInput("Please enter your check number."); // remember to change these back to ints later
             if (checkNum.ToString().Length != 3 && checkNum.ToString().Length != 4)
             {
                 Console.WriteLine("A check number must be an integer that is 3 or 4 digits long.");
@@ -91,7 +93,7 @@ namespace PointOfSale
                 return; // we might not need this.
             }
 
-            string input = helper.GetStringInput("How much money are you using to pay for this by check?");
+            string input = Helper.GetStringInput("How much money are you using to pay for this by check?");
             if (double.TryParse(input, out double amountPaid))
             {
                 if (amountPaid < TotalOwed)
@@ -117,7 +119,7 @@ namespace PointOfSale
 
         public void CardPaid()
         {
-            string cardNumber = helper.GetStringInput("Please enter your 16 card number.");
+            string cardNumber = Helper.GetStringInput("Please enter your 16 card number.");
             if (!long.TryParse(cardNumber, out long outputNum) || cardNumber.ToString().Length != 16) 
             {  // We use a long here because an int can't have 16 digits.
 
@@ -126,15 +128,15 @@ namespace PointOfSale
                 return;
             }
 
-            int cvv = helper.GetIntInput("Please enter your card's CCV."); // remember to change these back to ints later
-            if (cvv.ToString().Length == 3 || cvv.ToString().Length == 4)
+            int cvv = Helper.GetIntInput("Please enter your card's CCV."); // remember to change these back to ints later
+            if (cvv.ToString().Length != 3 && cvv.ToString().Length != 4)
             {
                 Console.WriteLine("A CVV must be an integer that is 3 or 4 digits long. Let's try again.");
                 CardPaid();
                 return;
             }
 
-            int expiryMonth = helper.GetIntInput("Please enter the month your card expires as an integer.");
+            int expiryMonth = Helper.GetIntInput("Please enter the month your card expires as an integer.");
             if (expiryMonth < 1 || expiryMonth > 12)
             {
                 Console.WriteLine("That is not a valid month. Let's try again.");
@@ -142,7 +144,7 @@ namespace PointOfSale
                 return;
             }
 
-            int expiryYear = helper.GetIntInput("Please enter the last 2 digits of the year your cards expires as an integer.") + 2000;
+            int expiryYear = Helper.GetIntInput("Please enter the last 2 digits of the year your cards expires as an integer.") + 2000;
             if (expiryMonth < DateTime.Today.Month && expiryYear == DateTime.Today.Year || expiryYear < DateTime.Today.Year)
             { // I think cards don't expire until the end of the expiry month, so I did < instead of <=.
                 Console.WriteLine("Your card is expired. Let's try again.");
