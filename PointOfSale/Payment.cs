@@ -16,8 +16,7 @@ namespace PointOfSale
     class Payment
     {
         public double TotalOwed { get; set; }
-        public PayOption Method { get; set; }
-        public double AmountGiven { get; set; } // Not sure if this is needed. maybe delete
+        //public PayOption Method { get; set; } // I don't know if we need this.
 
 
         public Payment(double TotalOwed)
@@ -37,9 +36,12 @@ namespace PointOfSale
                     CheckPaid();
                     break;
                 case PayOption.card:
-                    Console.WriteLine(CardPaid());
+                    CardPaid();
                     break;
             }
+
+            Console.WriteLine("You paid with " + option.ToString() + ".");
+            Console.WriteLine("Thank you for your business. Please come again!");
         }
 
         public PayOption GetPaymentMethod()
@@ -60,7 +62,7 @@ namespace PointOfSale
             }
         }
 
-        public string CashPaid() // If we need to update TotalOwed we could change return type to double and return TotalOwed - CashPaid.
+        public void CashPaid() // If we need to update TotalOwed we could change return type to double and return TotalOwed - CashPaid.
         {
             string input = GetStringInput("How much cash are you using to pay for this order?");
             
@@ -70,75 +72,81 @@ namespace PointOfSale
                 {
                     Console.Write("Your change is: $" + (cashPaid - TotalOwed).ToString("0.00") + ".");
                 }
-
-                return "Thank you for your business. Enjoy your meal.";
             }
             else
             {
                 Console.WriteLine("You've given less than the amount you owe. Let's try again.");
-                return CashPaid();
+                CashPaid();
             }
         }
 
-        public string CheckPaid()
+        public void CheckPaid()
         {
-            string input = GetStringInput("How much money are you using to pay for this by check?");
 
+            int checkNum = GetIntInput("Please enter your check number."); // remember to change these back to ints later
+            if (checkNum.ToString().Length < 3 || checkNum.ToString().Length > 4)
+            {
+                Console.WriteLine("A check number must be an integer that is 3 or 4 digits long.");
+                CheckPaid();
+                return; // we might not need this.
+            }
+
+            string input = GetStringInput("How much money are you using to pay for this by check?");
             if (double.TryParse(input, out double amountPaid))
             {
                 if (amountPaid < TotalOwed)
                 {
                     Console.WriteLine("Sorry, but this does not cover the bill. Please write one for the exact total owed.");
-                    return CheckPaid();
+                    CheckPaid();
+                    return;
                 }
                 else if (amountPaid > TotalOwed)
                 {
                     Console.WriteLine("Sorry, but we don't give change for payments involving checks. Please write one for the exact total owed.");
-                    return CheckPaid();
-                }
-                else
-                {
-                    return "Thanks for your business. Come again!";
+                    CheckPaid();
+                    return;
                 }
             }
             else
             {
                 Console.WriteLine("This is not a valid check. Let's try again.");
-                return CheckPaid();
+                CheckPaid();
             }
         }
 
-        public string CardPaid()
+        public void CardPaid()
         {
-            string cardNumber = GetStringInput("Please enter your card number.");
-            if (!long.TryParse(cardNumber, out long outputNum) || cardNumber.ToString().Length != 16)
-            {
+            string cardNumber = GetStringInput("Please enter your 16 card number.");
+            if (!long.TryParse(cardNumber, out long outputNum) || cardNumber.ToString().Length != 16) 
+            {  // We use a long here because an int can't have 16 digits.
                 Console.WriteLine("You entered non numbers or an incorrect amount of digits. Let's try again");
-                return CardPaid();
+                CardPaid();
+                return;
             }
 
-            int ccv = GetIntInput("Please enter your card's CCV."); // remember to change these back to ints later
-            if (ccv.ToString().Length < 3 || ccv.ToString().Length > 4)
+            int cvv = GetIntInput("Please enter your card's CCV."); // remember to change these back to ints later
+            if (cvv.ToString().Length < 3 || cvv.ToString().Length > 4)
             {
-                Console.WriteLine("You entered non numbers or an incorrect amount of digits. Let's try again");
-                return CardPaid();
+                Console.WriteLine("A CVV must be an integer that is 3 or 4 digits long.");
+                CardPaid();
+                return;
             }
 
             int expiryMonth = GetIntInput("Please enter the month your card expires as an integer.");
             if (expiryMonth < 1 || expiryMonth > 12)
             {
                 Console.WriteLine("That is not a valid month. Let's try again.");
-                return CardPaid();
+                CardPaid();
+                return;
             }
 
             int expiryYear = GetIntInput("Please enter the last 2 digits of the year your cards expires as an integer.") + 2000;
             if (expiryMonth < DateTime.Today.Month && expiryYear == DateTime.Today.Year || expiryYear < DateTime.Today.Year)
             { // I think cards don't expire until the end of the expiry month, so I did < instead of <=.
                 Console.WriteLine("Your card is expired. Let's try again, hopefully with a different card.");
-                return CardPaid();
+                CardPaid();
+                return;
             }
-
-            return "Thank you for your business. Please come again!";
         }
 
         public string GetStringInput(string prompt)
