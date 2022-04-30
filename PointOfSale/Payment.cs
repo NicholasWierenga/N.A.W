@@ -96,7 +96,7 @@ namespace PointOfSale
                 return;
             }
           
-            string input = helper.GetStringInput("What is the check amount?");
+            string input = Helper.GetStringInput("What is the check amount?");
             if (double.TryParse(input, out double amountPaid))
             {
                 if (amountPaid < TotalOwed)

@@ -87,7 +87,7 @@ namespace PointOfSale
             Payment customerPay = new Payment(Math.Round(total, 2), padLength); // We do round, because total might have more than 2 decimals.
             string payMessage = customerPay.Pay();
 
-            Console.WriteLine("RECEIPT".PadLeft((int)(padLength / 2) + 7, '=').PadRight(padLength + 6, '=')); // Prints the ===Receipt=== line
+            Console.WriteLine("RECEIPT".PadLeft((int)(padLength / 2) + 7, '=').PadRight(padLength + ("$" + total.ToString("0.00") + ".").Length, '=')); // Prints the ===Receipt=== line
             
             PrintCurrentOrder(subPrice, salesTax, total);
 
