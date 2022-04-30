@@ -28,6 +28,7 @@ namespace PointOfSale
         {
             PayOption option = GetPaymentMethod();
             string output = "";
+
             switch (option)
             {
                 case PayOption.cash:
@@ -40,8 +41,10 @@ namespace PointOfSale
                     CardPaid();
                     break;
             }
+
             output = ("Paid by " + option.ToString()).PadRight(padLength) + "$" + TotalOwed.ToString("0.00") + "."
                 + output;
+          
             return output;
         }
 
@@ -71,7 +74,7 @@ namespace PointOfSale
             {
                 if (cashPaid > TotalOwed) // We only want to tell a customer their change if they're actually getting some.
                 {
-                    return "Change is ".PadRight(padLength) + "$" + (cashPaid - TotalOwed).ToString("0.00") + ".";
+                    return "Change ".PadRight(padLength) + "$" + (cashPaid - TotalOwed).ToString("0.00") + ".";
                 }
                 return ""; // For when customer pays exact amount.
             }
@@ -92,8 +95,8 @@ namespace PointOfSale
                 CheckPaid();
                 return;
             }
-
-            string input = Helper.GetStringInput("How much money are you using to pay for this by check?");
+          
+            string input = helper.GetStringInput("What is the check amount?");
             if (double.TryParse(input, out double amountPaid))
             {
                 if (amountPaid < TotalOwed)
@@ -131,7 +134,7 @@ namespace PointOfSale
             int cvv = Helper.GetIntInput("Please enter your card's CCV.");
             if (cvv.ToString().Length != 3 && cvv.ToString().Length != 4)
             {
-                Console.WriteLine("A CVV must be an integer that is 3 or 4 digits long. Let's try again.");
+                Console.WriteLine("A CVV must be a 3 or 4 digit number. Let's try again.");
                 CardPaid();
                 return;
             }

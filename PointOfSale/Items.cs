@@ -65,7 +65,7 @@ namespace PointOfSale
 
                 Console.WriteLine();
 
-            } while (Helper.RunAgain("Do you want to order anything else? y/n"));
+            } while (Helper.RunAgain("Would you like to order anything else today? y/n"));
 
             CompleteOrder(subTotal, salesTax, total);
 
@@ -102,7 +102,6 @@ namespace PointOfSale
                 Console.WriteLine("(".PadLeft(12) + allItems[i].Desc + ")  ");
             }
         }
-
     }
 }
 
