@@ -24,7 +24,7 @@ namespace PointOfSale
             new Products("Slush", Category.Drink, "Cold drink", 5.00),
         };
         List<string> orderDetails = new List<string>();
-        int padLength = 21; // to adjust to change spacing between order details and amounts. It should be odd so ===receipt=== is symmetrical
+        int padLength = 27; // to adjust to change spacing between order details and amounts. It should be odd so ===receipt=== is symmetrical
 
         public void CheckOut()
         {
@@ -87,8 +87,9 @@ namespace PointOfSale
             Payment customerPay = new Payment(Math.Round(total, 2), padLength); // We do round, because total might have more than 2 decimals.
             string payMessage = customerPay.Pay();
 
-            Console.WriteLine("RECEIPT".PadLeft((int)(padLength / 2) + 7, '=').PadRight(padLength + ("$" + total.ToString("0.00") + ".").Length, '=')); // Prints the ===Receipt=== line
-            
+            int receiptLength = orderDetails.Max(str => str.Length); // Used to print the ===RECEIPT=== line
+            Console.WriteLine("RECEIPT".PadLeft(receiptLength / 2 + 4, '=').PadRight(receiptLength, '=')); 
+
             PrintCurrentOrder(subPrice, salesTax, total);
 
             Console.WriteLine(payMessage);
