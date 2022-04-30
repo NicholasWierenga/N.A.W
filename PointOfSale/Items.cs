@@ -23,48 +23,25 @@ namespace PointOfSale
             new Products("Water", Category.Drink, "Plain h2o", 0.99),
             new Products("Slush", Category.Drink, "Cold drink", 5.00),
         };
-
-
         List<string> orderDetails = new List<string>();
-
-        public Items()
-        {
-        }
-
-        public void PrintAll()
-        {
-            for (int i = 0; i < allItems.Count; i++)
-            {
-                Console.WriteLine((i + 1) + "  " + allItems[i].Name + " ............................. " + "Price: $".PadLeft(10) + allItems[i].Price.ToString("0.00") + ".");
-                Console.WriteLine("(".PadLeft(12) + allItems[i].Desc + ")  ");
-            }
-        }
+        int padLength = 21; // to adjust to change spacing between order details and amounts. It should be odd so ===receipt=== is symmetrical
 
         public void CheckOut()
         {
             double subTotal = 0;
-            double salesTax = 0;
+            double salesTax;
             double total;
-            
 
             do
             {
                 PrintAll();
-                Console.WriteLine();
-                Console.WriteLine("What item number from the menu would you like to order?");
-                string order = Console.ReadLine().Trim();
 
+                string order = Helper.GetStringInput("What item number from the menu would you like to order?");
 
                 if (int.TryParse(order, out int index) && index >= 1 && index <= allItems.Count)
                 {
                     Console.WriteLine("You've selected: ");
                     Console.WriteLine(allItems[index - 1].Name + " for " + "$" + allItems[index - 1].Price.ToString("0.00") + ".");
-                }
-                else if (order.Length == 0)
-                {
-                    Console.WriteLine("You have to order something.");
-                    CheckOut();
-                    return;
                 }
                 else
                 {
@@ -73,40 +50,25 @@ namespace PointOfSale
                     return;
                 }
 
-                int amountOrdered = OrderAmount(index);
+                int amountOrdered = Helper.GetIntInput("How many do you want to order?");
+
                 Console.WriteLine();
                 
                 subTotal = subTotal + amountOrdered * allItems[index - 1].Price;
                 salesTax = 0.06 * subTotal;
                 total = subTotal + salesTax;
 
-                //custFoodPicked.Add(allItems[index - 1]); // Adds the item they ordered to the list of items they ordered.
-                orderDetails.Add("You ordered " + amountOrdered + " of " + allItems[index - 1].Name +
-                        ", which costs $" + (amountOrdered * allItems[index - 1].Price).ToString("0.00") + ".");
+                orderDetails.Add((amountOrdered + "x " + allItems[index - 1].Name).PadRight(padLength)
+                    + "$" + (amountOrdered * allItems[index - 1].Price).ToString("0.00") + ".");
 
                 PrintCurrentOrder(subTotal, salesTax, total);
 
                 Console.WriteLine();
-                Console.WriteLine("Would you like to order anything else today? y/n");
 
-            } while (helper.RunAgain());
+            } while (Helper.RunAgain("Would you like to order anything else today? y/n"));
 
             CompleteOrder(subTotal, salesTax, total);
 
-        }
-
-        public void CompleteOrder(double subPrice, double salesTax, double total)
-        {
-            Payment customerPay = new Payment(Math.Round(total, 2)); // We do round, because total might have more than 2 decimals.
-            string payMessage = customerPay.Pay();
-
-            Console.WriteLine("===================RECEIPT===================");
-
-            PrintCurrentOrder(subPrice, salesTax, total);
-
-            Console.WriteLine(payMessage);
-            Console.WriteLine();
-            Console.WriteLine("Thank you for your business. Please come again!");
         }
         public void PrintCurrentOrder(double subPrice, double salesTax, double total)
         {
@@ -115,38 +77,31 @@ namespace PointOfSale
                 Console.WriteLine(orderDetails[i]);
             }
 
-            Console.WriteLine(("Subtotal: " + "$" + subPrice.ToString("0.00") + ".").PadLeft(30));
-            Console.WriteLine(("Sales tax: " + "$" + salesTax.ToString("0.00") + ".").PadLeft(30));
-
-            Console.WriteLine("____________________________________________");
-            Console.WriteLine(("Grand total: " + "$" + total.ToString("0.00") + ".").PadLeft(30));
+            Console.WriteLine("Subtotal ".PadRight(padLength) + "$" + subPrice.ToString("0.00") + ".");
+            Console.WriteLine("Sales tax ".PadRight(padLength) + "$" + salesTax.ToString("0.00") + ".");
+            Console.WriteLine("".PadLeft(padLength + ("$" + total.ToString("0.00") + ".").Length, '_'));
+            Console.WriteLine("Grand total ".PadRight(padLength) + "$" + total.ToString("0.00") + ".");
         }
-
-        public int OrderAmount(int index)
+        public void CompleteOrder(double subPrice, double salesTax, double total)
         {
-            Console.WriteLine("How many do you want to order?");
+            Payment customerPay = new Payment(Math.Round(total, 2), padLength); // We do round, because total might have more than 2 decimals.
+            string payMessage = customerPay.Pay();
 
-            string input = Console.ReadLine().Trim();
+            Console.WriteLine("RECEIPT".PadLeft((int)(padLength / 2) + 7, '=').PadRight(padLength + 6, '=')); // Prints the ===Receipt=== line
+            
+            PrintCurrentOrder(subPrice, salesTax, total);
 
-            if (double.TryParse(input, out double numberOrdered) && numberOrdered % 1 == 0)
+            Console.WriteLine(payMessage);
+            Console.WriteLine("Thank you for your business. Please come again!");
+        }
+        public void PrintAll()
+        {
+            for (int i = 0; i < allItems.Count; i++)
             {
-                if (numberOrdered <= 0)
-                {
-                    Console.WriteLine("That is not a correct amount ordered.");
-                    return OrderAmount(index);
-                }
-                else
-                {
-                    return (int)numberOrdered; // We parse as double and cast as int in the end to check for integers like 1.0.
-                }
-            }
-            else
-            {
-                Console.WriteLine("That is not a valid item number. Let's try again.");
-                return OrderAmount(index);
+                Console.WriteLine(((i + 1) + "  " + allItems[i].Name + " ").PadRight(25, '.') + " Price: $" + allItems[i].Price.ToString("0.00") + ".");
+                Console.WriteLine("(".PadLeft(12) + allItems[i].Desc + ")  ");
             }
         }
-       
     }
 }
 
