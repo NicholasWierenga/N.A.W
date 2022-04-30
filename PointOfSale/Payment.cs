@@ -63,7 +63,7 @@ namespace PointOfSale
             }
         }
 
-        public string CashPaid() // If we need to update TotalOwed we could change return type to double and return TotalOwed - CashPaid.
+        public string CashPaid()
         {
             string input = Helper.GetStringInput("How much cash are you using to pay for this order?");
             
@@ -85,12 +85,12 @@ namespace PointOfSale
 
         public void CheckPaid()
         {
-            int checkNum = Helper.GetIntInput("Please enter your check number."); // remember to change these back to ints later
+            int checkNum = Helper.GetIntInput("Please enter your check number.");
             if (checkNum.ToString().Length != 3 && checkNum.ToString().Length != 4)
             {
                 Console.WriteLine("A check number must be an integer that is 3 or 4 digits long.");
                 CheckPaid();
-                return; // we might not need this.
+                return;
             }
 
             string input = Helper.GetStringInput("How much money are you using to pay for this by check?");
@@ -121,14 +121,14 @@ namespace PointOfSale
         {
             string cardNumber = Helper.GetStringInput("Please enter your 16 card number.");
             if (!long.TryParse(cardNumber, out long outputNum) || cardNumber.ToString().Length != 16) 
-            {  // We use a long here because an int can't have 16 digits.
+            {  // We use a long here because an int can't store 16 digits.
 
                 Console.WriteLine("You entered non numbers or an incorrect amount of digits. Let's try again");
                 CardPaid();
                 return;
             }
 
-            int cvv = Helper.GetIntInput("Please enter your card's CCV."); // remember to change these back to ints later
+            int cvv = Helper.GetIntInput("Please enter your card's CCV.");
             if (cvv.ToString().Length != 3 && cvv.ToString().Length != 4)
             {
                 Console.WriteLine("A CVV must be an integer that is 3 or 4 digits long. Let's try again.");
