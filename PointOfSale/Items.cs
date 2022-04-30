@@ -24,7 +24,7 @@ namespace PointOfSale
             new Products("Slush", Category.Drink, "Cold drink", 5.00),
         };
         List<string> orderDetails = new List<string>();
-        int padLength = 27; // to change spacing between order details and amounts. It should be odd so ===receipt=== is symmetrical
+        int padLength = 27; // to change spacing between order details and amounts.
 
         public void CheckOut()
         {
