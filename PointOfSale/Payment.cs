@@ -71,17 +71,23 @@ namespace PointOfSale
         {
             string input = Helper.GetStringInput("How much cash are you using to pay for this order?");
             
-            if (double.TryParse(input, out double cashPaid) && cashPaid >= TotalOwed)
+            if (double.TryParse(input, out double cashPaid))
             {
                 if (cashPaid > TotalOwed) // We only want to tell a customer their change if they're actually getting some.
                 {
                     return "Change ".PadRight(padLength) + "$" + (cashPaid - TotalOwed).ToString("0.00") + ".";
                 }
+                else if (cashPaid < TotalOwed)
+                {
+                    Console.WriteLine("You've given less than the amount you owe. Let's try again.");
+                    return CashPaid();
+                }
+
                 return ""; // For when customer pays exact amount.
             }
             else
             {
-                Console.WriteLine("You've given less than the amount you owe. Let's try again.");
+                Console.WriteLine("This is not a valid amount. Let's try again.");
                 return CashPaid();
             }
         }
@@ -114,7 +120,7 @@ namespace PointOfSale
             }
             else
             {
-                Console.WriteLine("This is not a valid check. Let's try again.");
+                Console.WriteLine("This is not a valid check amount. Let's try again.");
                 CheckPaid();
                 return;
             }
