@@ -17,12 +17,14 @@ namespace PointOfSale
     {
         public double TotalOwed { get; set; }
         public int padLength { get; set; }
+        public int padTotal { get; set; }
 
 
-        public Payment(double TotalOwed, int padLength)
+        public Payment(double TotalOwed, int padLength, int padTotal)
         {
             this.TotalOwed = TotalOwed;
             this.padLength = padLength;
+            this.padTotal = padTotal;
         }
 
         public string Pay()
@@ -43,7 +45,7 @@ namespace PointOfSale
                     break;
             }
 
-            output = ("Paid by " + option.ToString()).PadRight(padLength) + "$" + TotalOwed.ToString("0.00") + "."
+            output = ("Paid by " + option.ToString()).PadRight(padLength) + ("$" + TotalOwed.ToString("0.00") + ".").PadLeft(padTotal)
                 + output;
           
             return output;
@@ -73,9 +75,14 @@ namespace PointOfSale
             
             if (double.TryParse(input, out double cashPaid))
             {
-                if (cashPaid > TotalOwed) // We only want to tell a customer their change if they're actually getting some.
+                if (("$" + (cashPaid - TotalOwed).ToString("0.00") + ".").Length > padTotal && cashPaid > TotalOwed) // For when change is really large.
                 {
-                    return "Change ".PadRight(padLength) + "$" + (cashPaid - TotalOwed).ToString("0.00") + ".";
+                    int padBigChange = padLength - (("$" + (cashPaid - TotalOwed).ToString("0.00") + ".").Length - padTotal);
+                    return "Change ".PadRight(padBigChange) + ("$" + (cashPaid - TotalOwed).ToString("0.00") + ".").PadLeft(padTotal);
+                }
+                else if (cashPaid > TotalOwed) // We only want to tell a customer their change if they're actually getting some.
+                {
+                    return "Change ".PadRight(padLength) + ("$" + (cashPaid - TotalOwed).ToString("0.00") + ".").PadLeft(padTotal);
                 }
                 else if (cashPaid < TotalOwed)
                 {
