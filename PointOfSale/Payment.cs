@@ -24,6 +24,7 @@ namespace PointOfSale
             this.TotalOwed = TotalOwed;
             this.padLength = padLength;
         }
+
         public string Pay()
         {
             PayOption option = GetPaymentMethod();
@@ -47,6 +48,7 @@ namespace PointOfSale
           
             return output;
         }
+
         public PayOption GetPaymentMethod()
         {
             string input = Helper.GetStringInput("What method of payment do you want to use? We accept cash, check, or card?");
@@ -82,7 +84,6 @@ namespace PointOfSale
                 Console.WriteLine("You've given less than the amount you owe. Let's try again.");
                 return CashPaid();
             }
-            
         }
 
         public void CheckPaid()
