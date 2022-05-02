@@ -8,6 +8,7 @@ namespace PointOfSale
 {
     public class Items
     {
+        List<Products> allItems = new List<Products>();
         List<Products> orderDetails = new List<Products>();
         List<int> numOrderedList = new List<int>();
         int padLength = 27; // to adjust to change spacing between order details and amounts.
@@ -30,7 +31,7 @@ namespace PointOfSale
 
                 Console.WriteLine();
                 
-                subTotal = Math.Round(subTotal + amountOrdered * allItems[index].Price, 2);
+                subTotal = Math.Round(subTotal + amountOrdered * (allItems)[index].Price, 2);
                 salesTax = Math.Round(0.06 * subTotal, 2);
                 total = Math.Round(subTotal + salesTax, 2);
 
@@ -52,6 +53,16 @@ namespace PointOfSale
             } while (Helper.RunAgain("Would you like to order anything else today? y/n"));
 
             CompleteOrder(subTotal, salesTax, total);
+        }
+        public void GetListTextFile()
+        {
+            string filePath = @"C:\Users\wendy\OneDrive\Desktop\naw project\N.A.W\AllItems.txt";
+            List<string> lines = File.ReadAllLines(filePath).ToList();
+            foreach (string line in lines)
+            {
+                string[] things = line.Split(",");
+                allItems.Add(new Products(things[0], (Category)Enum.Parse(typeof(Category), things[1]), things[2], double.Parse(things[3])));
+            }
         }
 
         public void PrintAll()
