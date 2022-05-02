@@ -47,7 +47,6 @@ namespace PointOfSale
           
             return output;
         }
-
         public PayOption GetPaymentMethod()
         {
             string input = Helper.GetStringInput("What method of payment do you want to use? We accept cash, check, or card?");
