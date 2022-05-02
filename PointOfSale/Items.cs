@@ -59,6 +59,7 @@ namespace PointOfSale
             CompleteOrder(subTotal, salesTax, total);
 
         }
+
         public void PrintAll()
         {
             for (int i = 0; i < allItems.Count; i++)
@@ -67,6 +68,7 @@ namespace PointOfSale
                 Console.WriteLine("(".PadLeft(12) + allItems[i].Desc + ")  ");
             }
         }
+
         public int GetUserOrder()
         {
             string order = Helper.GetStringInput("What item from the menu would you like to order? Enter its number or name.");
@@ -91,6 +93,7 @@ namespace PointOfSale
                 return GetUserOrder();
             }
         }
+
         public void PrintCurrentOrder(double subPrice, double salesTax, double total)
         {
             for (int i = 0; i < orderDetails.Count; i++)
@@ -103,6 +106,7 @@ namespace PointOfSale
             Console.WriteLine("".PadLeft(padLength + ("$" + total.ToString("0.00") + ".").Length, '_'));
             Console.WriteLine("Grand total ".PadRight(padLength) + "$" + total.ToString("0.00") + ".");
         }
+
         public void CompleteOrder(double subPrice, double salesTax, double total)
         {
             Payment customerPay = new Payment(Math.Round(total, 2), padLength); // We do round, because total might have more than 2 decimals.
