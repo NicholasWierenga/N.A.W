@@ -24,7 +24,8 @@ namespace PointOfSale
             new Products("Slush", Category.Drink, "Cold drink", 5.00),
         };
         List<string> orderDetails = new List<string>();
-        int padLength = 27; // to adjust to change spacing between order details and amounts. It should be odd so ===receipt=== is symmetrical
+        int padLength = 27; // to adjust to change spacing between order details and amounts.
+        int index;
 
         public void CheckOut()
         {
@@ -35,31 +36,19 @@ namespace PointOfSale
             do
             {
                 PrintAll();
-
-                string order = Helper.GetStringInput("What item number from the menu would you like to order?");
-
-                if (int.TryParse(order, out int index) && index >= 1 && index <= allItems.Count)
-                {
-                    Console.WriteLine("You've selected: ");
-                    Console.WriteLine(allItems[index - 1].Name + " for " + "$" + allItems[index - 1].Price.ToString("0.00") + ".");
-                }
-                else
-                {
-                    Console.WriteLine("I'm sorry, we do not have that item. Let's try again.");
-                    CheckOut();
-                    return;
-                }
+                
+                index = GetUserOrder();
 
                 int amountOrdered = Helper.GetIntInput("How many do you want to order?");
 
                 Console.WriteLine();
                 
-                subTotal = subTotal + amountOrdered * allItems[index - 1].Price;
+                subTotal = subTotal + amountOrdered * allItems[index].Price;
                 salesTax = 0.06 * subTotal;
                 total = subTotal + salesTax;
 
-                orderDetails.Add((amountOrdered + "x " + allItems[index - 1].Name).PadRight(padLength)
-                    + "$" + (amountOrdered * allItems[index - 1].Price).ToString("0.00") + ".");
+                orderDetails.Add((amountOrdered + "x " + allItems[index].Name).PadRight(padLength) 
+                    + "$" + (amountOrdered * allItems[index].Price).ToString("0.00") + "."); // Adds a string with amount ordered, item's name, and price for it.
 
                 PrintCurrentOrder(subTotal, salesTax, total);
 
@@ -69,6 +58,38 @@ namespace PointOfSale
 
             CompleteOrder(subTotal, salesTax, total);
 
+        }
+        public void PrintAll()
+        {
+            for (int i = 0; i < allItems.Count; i++)
+            {
+                Console.WriteLine(((i + 1) + "  " + allItems[i].Name + " ").PadRight(25, '.') + " Price: $" + allItems[i].Price.ToString("0.00") + ".");
+                Console.WriteLine("(".PadLeft(12) + allItems[i].Desc + ")  ");
+            }
+        }
+        public int GetUserOrder()
+        {
+            string order = Helper.GetStringInput("What item from the menu would you like to order? Enter its number or name.");
+            index = allItems.FindIndex(item => item.Name.ToLower() == order); // We check if the order is in the list, equals -1 if it isn't.
+
+            if (index != -1) // For when user entered name.
+            {
+                Console.WriteLine("You've selected: ");
+                Console.WriteLine(allItems[index].Name + " for " + "$" + allItems[index].Price.ToString("0.00") + ".");
+                return index;
+            }
+            else if (int.TryParse(order, out index) && index >= 1 && index <= allItems.Count) // For when user entered number.
+            {
+                Console.WriteLine("You've selected: ");
+                Console.WriteLine(allItems[index - 1].Name + " for " + "$" + allItems[index - 1].Price.ToString("0.00") + ".");
+                return index - 1; // Since we listed off the items starting at 1 and not 0, we have to return whatever they put - 1.
+            }
+            else
+            {
+                PrintAll();
+                Console.WriteLine("We do not have that item. Let's try again.");
+                return GetUserOrder();
+            }
         }
         public void PrintCurrentOrder(double subPrice, double salesTax, double total)
         {
@@ -94,14 +115,6 @@ namespace PointOfSale
 
             Console.WriteLine(payMessage);
             Console.WriteLine("Thank you for your business. Please come again!");
-        }
-        public void PrintAll()
-        {
-            for (int i = 0; i < allItems.Count; i++)
-            {
-                Console.WriteLine(((i + 1) + "  " + allItems[i].Name + " ").PadRight(25, '.') + " Price: $" + allItems[i].Price.ToString("0.00") + ".");
-                Console.WriteLine("(".PadLeft(12) + allItems[i].Desc + ")  ");
-            }
         }
     }
 }
