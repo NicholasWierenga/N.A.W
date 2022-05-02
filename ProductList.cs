@@ -25,7 +25,7 @@ public class Class1
 
     public override string ToString ()
     {
-        return Name + Catigory + Discription + Price;
+        return number + Name + Catigory + Discription + Price;
     }
 }
 }
