@@ -8,9 +8,9 @@ namespace PointOfSale
 {
     public enum Category
     {
-        Entree,
-        Side,
-        Drink,
+        entree,
+        side,
+        drink,
     }
 
     class Products

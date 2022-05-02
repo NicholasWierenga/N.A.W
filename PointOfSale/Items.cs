@@ -8,35 +8,24 @@ namespace PointOfSale
 {
     public class Items
     {
-        List<Products> allItems = new List<Products>
-        {
-            new Products("Burger", Category.Entree, "It's a cheeseburger", 5.00),
-            new Products("Nuggets", Category.Entree, "8 chicken nuggets", 4.50),
-            new Products("Taco", Category.Entree, "A taco", 3.25),
-            new Products("Hot dog", Category.Entree, "A hot dog", 2.00),
-            new Products("Fries", Category.Side, "Curly fries", 1.50),
-            new Products("Tots", Category.Side, "Tater tots", 3.25),
-            new Products("Onion Rings", Category.Side, "6 big rings", 2.50),
-            new Products("Cole Slaw", Category.Side, "It's cole slaw", 1.25),
-            new Products("Lemonade", Category.Drink, "Sour drink", 5.00),
-            new Products("Coke", Category.Drink, "Coca-cola", 2.00),
-            new Products("Water", Category.Drink, "Plain h2o", 0.99),
-            new Products("Slush", Category.Drink, "Cold drink", 5.00),
-        };
+        List<Products> allItems = new List<Products>();
         List<Products> orderDetails = new List<Products>();
         List<int> numOrderedList = new List<int>();
         int padLength = 27; // to adjust to change spacing between order details and amounts.
         int index;
         int amountOrdered;
 
+        
         public void CheckOut()
         {
+
             double subTotal = 0;
             double salesTax;
             double total;
 
             do
             {
+                GetListTextFile();
                 PrintAll();
                 
                 index = GetUserOrder();
@@ -58,7 +47,6 @@ namespace PointOfSale
                     orderDetails.Add(allItems[index]);
                     numOrderedList.Add(amountOrdered);
                 }
-                
 
                 PrintCurrentOrder(subTotal, salesTax, total);
 
@@ -69,6 +57,92 @@ namespace PointOfSale
             CompleteOrder(subTotal, salesTax, total);
         }
 
+        public void ChangeAllItems(string prompt)
+        {
+            string input = Helper.GetStringInput(prompt).ToLower().Trim();
+
+            if (input == "y")
+            {
+                string name = Helper.GetStringInput("Please enter the item's name.");
+
+                string foodType = Helper.GetStringInput("Please enter the item's category. Must be entree, side, or drink.");
+                if (!(Enum.TryParse(foodType, out Category foodCat) &&
+                    foodCat == Category.entree || foodCat == Category.side || foodCat == Category.drink))
+                {
+                    Console.WriteLine("That is not a category. Let's try again.");
+                    ChangeAllItems(prompt);
+                    return;
+                }
+
+                string desc = Helper.GetStringInput("Please enter the item's description.");
+
+                string price = Helper.GetStringInput("Please enter the item's price.");
+                if (!(double.TryParse(price, out double foodPrice)))
+                {
+                    Console.WriteLine("That is not a proper number. Let's try again.");
+                    ChangeAllItems(prompt);
+                    return;
+                }
+
+                allItems.Add(new Products(name, foodCat, desc, foodPrice));
+                Console.WriteLine("That was a valid item.");
+                ChangeAllItems(prompt);
+
+                List<string> outContents = new List<string>();
+                for (int i = 0; i < allItems.Count; i++)
+                {
+                    outContents.Add(allItems[i].Name + "," + allItems[i].Category + "," + allItems[i].Desc + "," + allItems[i].Price.ToString("0.00"));
+                }
+                string outFile = @"C:\Users\Nick\source\repos\N.A.W\AllItems.txt";
+            }
+            else if (input == "n")
+            {
+                return;
+            }
+            else if (input == "reset")
+            {
+                string filePath = @"C:\Users\Nick\source\repos\N.A.W\Reset.txt";
+
+                List<string> lines = File.ReadAllLines(filePath).ToList();
+                allItems.Clear();
+                foreach (string line in lines)
+                {
+                    string[] things = line.Split(",");
+
+                    allItems.Add(new Products(things[0], (Category)Enum.Parse(typeof(Category), things[1]), things[2], double.Parse(things[3])));
+                }
+                List<string> outContents = new List<string>();
+                for (int i = 0; i < allItems.Count; i++)
+                {
+                    outContents.Add(allItems[i].Name + "," + allItems[i].Category + "," + allItems[i].Desc + "," + allItems[i].Price.ToString("0.00"));
+                }
+                string outFile = @"C:\Users\Nick\source\repos\N.A.W\AllItems.txt";
+
+                Console.WriteLine("Menu reset.");
+                ChangeAllItems(prompt);
+                return;
+            }
+            else
+            {
+                Console.WriteLine("I didn't quite get that. Let's try again.");
+                ChangeAllItems(prompt);
+            }
+        }
+
+        public void GetListTextFile()
+        {
+            string filePath = @"C:\Users\Nick\source\repos\N.A.W\AllItems.txt";
+
+            List<string> lines = File.ReadAllLines(filePath).ToList();
+
+            foreach (string line in lines)
+            {
+                string[] things = line.Split(",");
+
+                allItems.Add(new Products(things[0], (Category)Enum.Parse(typeof(Category), things[1]), things[2], double.Parse(things[3])));
+            }
+            ChangeAllItems("Do you want to add something to the menu? y to add, n to continue to order. Reset to get only default items.");
+        }
         public void PrintAll()
         {
             for (int i = 0; i < allItems.Count; i++)
