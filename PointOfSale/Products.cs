@@ -12,6 +12,7 @@ namespace PointOfSale
         Side,
         Drink,
     }
+
     class Products
     {
         public string Name { get; set; }

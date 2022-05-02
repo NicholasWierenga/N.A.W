@@ -24,6 +24,7 @@ namespace PointOfSale
             this.TotalOwed = TotalOwed;
             this.padLength = padLength;
         }
+
         public string Pay()
         {
             PayOption option = GetPaymentMethod();
@@ -83,7 +84,6 @@ namespace PointOfSale
                 Console.WriteLine("You've given less than the amount you owe. Let's try again.");
                 return CashPaid();
             }
-            
         }
 
         public void CheckPaid()
