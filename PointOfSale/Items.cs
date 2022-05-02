@@ -8,21 +8,6 @@ namespace PointOfSale
 {
     public class Items
     {
-        List<Products> allItems = new List<Products>
-        {
-            new Products("Burger", Category.Entree, "It's a cheeseburger", 5.00),
-            new Products("Nuggets", Category.Entree, "8 chicken nuggets", 4.50),
-            new Products("Taco", Category.Entree, "A taco", 3.25),
-            new Products("Hot dog", Category.Entree, "A hot dog", 2.00),
-            new Products("Fries", Category.Side, "Curly fries", 1.50),
-            new Products("Tots", Category.Side, "Tater tots", 3.25),
-            new Products("Onion Rings", Category.Side, "6 big rings", 2.50),
-            new Products("Cole Slaw", Category.Side, "It's cole slaw", 1.25),
-            new Products("Lemonade", Category.Drink, "Sour drink", 5.00),
-            new Products("Coke", Category.Drink, "Coca-cola", 2.00),
-            new Products("Water", Category.Drink, "Plain h2o", 0.99),
-            new Products("Slush", Category.Drink, "Cold drink", 5.00),
-        };
         List<Products> orderDetails = new List<Products>();
         List<int> numOrderedList = new List<int>();
         int padLength = 27; // to adjust to change spacing between order details and amounts.
