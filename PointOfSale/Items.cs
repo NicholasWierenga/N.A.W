@@ -57,7 +57,6 @@ namespace PointOfSale
             } while (Helper.RunAgain("Would you like to order anything else today? y/n"));
 
             CompleteOrder(subTotal, salesTax, total);
-
         }
 
         public void PrintAll()
